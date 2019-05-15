@@ -11,7 +11,7 @@ DEBUG=
 
 VPATH=src 
 
-CFLAGS= -Wall -std=c++98 -$(DEBUG) $(OPT)
+CFLAGS= -Wall $(DEBUG) $(OPT)
 
 OBJDIR=lib
 LIBDIR=$(OBJDIR)
