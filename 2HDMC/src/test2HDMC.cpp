@@ -42,14 +42,14 @@ int main(int argc, char* argv[]) {
     // Set parameters of the 2HDM in the 'physical' basis
     // Some parameters stay the same
     double mh       = 125.;
-    double mH       = (double)atof(argv[1]); // 100 1000
-    double mA       = (double)atof(argv[2]);  //100 1000
-    double mC       = (double)atof(argv[3]); //100 1000
-    double sba      = (double)atof(argv[4]);  //0.9 1
+    double mH       = 150.;
+    double mA       = 250.;
+    double mC       = 250.;
+    double sba      = 1.;
     double lambda_6 = 0.;  // 
     double lambda_7 = 0.;
-    double tb       = (double)atof(argv[5]);  //0 25
-    int yt_in = (int)atoi(argv[6]); //Type
+    double tb       = 2.;
+    int yt_in = 1;
 
 
 
@@ -102,5 +102,5 @@ int main(int argc, char* argv[]) {
   std::cout << "Perturbativity = " << std::fixed << BitAllowedPerturbativity << "\n";  //12
    //############  h decays #####################################
   std::cout << "BrhWW = "<< std::fixed << BrhWW << "\n";
-  std::cout << "BrhZZ = " << std::fixed << BrhZZ << "\n";
+  std::cout << "Brhtautau = " << std::fixed << Brhtautau << "\n";
 }
