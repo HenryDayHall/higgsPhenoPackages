@@ -2621,121 +2621,121 @@ end subroutine HiggsBounds_neutral_input_hadr_channelrates_clean
 ! 
 ! end subroutine HiggsBounds_neutral_input_effC
 ! !************************************************************      
-! subroutine HiggsBounds_neutral_input_part(Mh,GammaTotal_hj,CP_value,       &
-!      &          CS_lep_hjZ_ratio,                            &
-!      &          CS_lep_bbhj_ratio,CS_lep_tautauhj_ratio,     &
-!      &          CS_lep_hjhi_ratio_nHbynH,                    &
-!      &          CS_gg_hj_ratio,CS_bb_hj_ratio,       &
-!      &          CS_bg_hjb_ratio,                         &
-!      &          CS_ud_hjWp_ratio,CS_cs_hjWp_ratio,   & 
-!      &          CS_ud_hjWm_ratio,CS_cs_hjWm_ratio,   & 
-!      &          CS_gg_hjZ_ratio,     &
-!      &          CS_dd_hjZ_ratio,CS_uu_hjZ_ratio,     &
-!      &          CS_ss_hjZ_ratio,CS_cc_hjZ_ratio,     &
-!      &          CS_bb_hjZ_ratio,                         &
-!      &          CS_tev_vbf_ratio,CS_tev_tthj_ratio,    &
-!      &          CS_lhc7_vbf_ratio,CS_lhc7_tthj_ratio,    &
-!      &          CS_lhc8_vbf_ratio,CS_lhc8_tthj_ratio,    &
-!      &          BR_hjss,BR_hjcc,                             &
-!      &          BR_hjbb,BR_hjmumu,BR_hjtautau,               &
-!      &          BR_hjWW,BR_hjZZ,BR_hjZga, BR_hjgaga,BR_hjgg, & 
-!      &          BR_hjinvisible,BR_hjhihi_nHbynH              )
-! ! This subroutine can be called by the user after subroutine initialize_HiggsBounds
-! ! has been called.
-! ! (see manual for full description)
-! !************************************************************
-!  use usefulbits, only : theo,np,Hneut,partR,whichinput,just_after_run!,inputsub
-! 
-! #if defined(NAGf90Fortran)
-!  use F90_UNIX_IO, only : flush
-! #endif
-! 
-!  implicit none
-!  !----------------------------------------input
-!  double precision,intent(in) :: Mh( np(Hneut) ),GammaTotal_hj( np(Hneut) )
-!  integer,intent(in) ::CP_value( np(Hneut) )
-!  double precision,intent(in) :: CS_lep_hjZ_ratio( np(Hneut) ),                         &
-!      &          CS_lep_bbhj_ratio( np(Hneut) ),CS_lep_tautauhj_ratio( np(Hneut) ),     &
-!      &          CS_lep_hjhi_ratio_nHbynH(np(Hneut),np(Hneut)),                         &
-!      &          CS_gg_hj_ratio( np(Hneut) ),CS_bb_hj_ratio( np(Hneut) ),       &
-!      &          CS_bg_hjb_ratio( np(Hneut) ),                                      &
-!      &          CS_ud_hjWp_ratio( np(Hneut) ),CS_cs_hjWp_ratio( np(Hneut) ),   & 
-!      &          CS_ud_hjWm_ratio( np(Hneut) ),CS_cs_hjWm_ratio( np(Hneut) ),   & 
-!      &          CS_gg_hjZ_ratio( np(Hneut) ),    &
-!      &          CS_dd_hjZ_ratio( np(Hneut) ),CS_uu_hjZ_ratio( np(Hneut) ),     &
-!      &          CS_ss_hjZ_ratio( np(Hneut) ),CS_cc_hjZ_ratio( np(Hneut) ),     &
-!      &          CS_bb_hjZ_ratio( np(Hneut) ),                                      &
-!      &          CS_tev_vbf_ratio( np(Hneut) ),CS_tev_tthj_ratio( np(Hneut) ),    &
-!      &          CS_lhc7_vbf_ratio( np(Hneut) ),CS_lhc7_tthj_ratio( np(Hneut) ),    &
-!      &          CS_lhc8_vbf_ratio( np(Hneut) ),CS_lhc8_tthj_ratio( np(Hneut) ),    &
-!      &          BR_hjss( np(Hneut) ),BR_hjcc( np(Hneut) ),                             &
-!      &          BR_hjbb( np(Hneut) ),BR_hjmumu( np(Hneut) ),BR_hjtautau( np(Hneut) ),  &
-!      &          BR_hjWW( np(Hneut) ),BR_hjZZ( np(Hneut) ),BR_hjZga( np(Hneut) ),       &
-!      &          BR_hjgaga( np(Hneut) ),BR_hjgg( np(Hneut) ),                           & 
-!      &          BR_hjinvisible( np(Hneut) ),BR_hjhihi_nHbynH(np(Hneut),np(Hneut)) 
-!  !---------------------------------------internal
-!  integer :: n
-! !  integer :: subtype
-!  !-----------------------------------------------
-! 
-!  whichinput='part'
-! !  subtype=1
-!   n=1 
-! !  inputsub(subtype)%stat=inputsub(subtype)%stat+1
-!       
-!  if(.not.allocated(theo))then
-!   stop 'subroutine HiggsBounds_initialize must be called first'
-!  endif
-! 
-!  if(np(Hneut).eq.0)then
-!   write(*,*)'subroutine HiggsBounds_neutral_input_part should'
-!   write(*,*)'only be called if np(Hneut)>0'
-!   stop 'error in subroutine HiggsBounds_neutral_input_part'
-!  endif
-! 
-!  theo(n)%particle(Hneut)%M = Mh 
-!  theo(n)%particle(Hneut)%Mc      = Mh        
-!  theo(n)%particle(Hneut)%GammaTot= GammaTotal_hj
-!  theo(n)%CP_value          = CP_value  
-!  theo(n)%lep%XS_hjZ_ratio       = CS_lep_hjZ_ratio
-!  theo(n)%lep%XS_bbhj_ratio      = CS_lep_bbhj_ratio
-!  theo(n)%lep%XS_tautauhj_ratio  = CS_lep_tautauhj_ratio
-!  theo(n)%lep%XS_hjhi_ratio      = CS_lep_hjhi_ratio_nHbynH 
-!  partR(n)%gg_hj             = CS_gg_hj_ratio 
-!  partR(n)%qq_hj(5,:)        = CS_bb_hj_ratio
-!  partR(n)%bg_hjb            = CS_bg_hjb_ratio                    
-!  partR(n)%qq_hjWp(1,:)      = CS_ud_hjWp_ratio
-!  partR(n)%qq_hjWp(2,:)      = CS_cs_hjWp_ratio         
-!  partR(n)%qq_hjWm(1,:)      = CS_ud_hjWm_ratio
-!  partR(n)%qq_hjWm(2,:)      = CS_cs_hjWm_ratio  
-!  partR(n)%gg_hjZ(:)         = CS_gg_hjZ_ratio      
-!  partR(n)%qq_hjZ(1,:)       = CS_dd_hjZ_ratio
-!  partR(n)%qq_hjZ(2,:)       = CS_uu_hjZ_ratio           
-!  partR(n)%qq_hjZ(3,:)       = CS_ss_hjZ_ratio
-!  partR(n)%qq_hjZ(4,:)       = CS_cc_hjZ_ratio             
-!  partR(n)%qq_hjZ(5,:)       = CS_bb_hjZ_ratio                         
-!  theo(n)%tev%XS_vbf_ratio  = CS_tev_vbf_ratio   
-!  theo(n)%tev%XS_tthj_ratio = CS_tev_tthj_ratio  
-!  theo(n)%lhc7%XS_vbf_ratio = CS_lhc7_vbf_ratio   
-!  theo(n)%lhc7%XS_tthj_ratio= CS_lhc7_tthj_ratio
-!  theo(n)%lhc8%XS_vbf_ratio = CS_lhc8_vbf_ratio   
-!  theo(n)%lhc8%XS_tthj_ratio= CS_lhc8_tthj_ratio
-!  theo(n)%BR_hjss           = BR_hjss  
-!  theo(n)%BR_hjcc           = BR_hjcc                
-!  theo(n)%BR_hjbb           = BR_hjbb
-!  theo(n)%BR_hjmumu         = BR_hjmumu
-!  theo(n)%BR_hjtautau       = BR_hjtautau              
-!  theo(n)%BR_hjWW           = BR_hjWW
-!  theo(n)%BR_hjZZ           = BR_hjZZ
-!  theo(n)%BR_hjZga          = BR_hjZga  
-!  theo(n)%BR_hjgaga         = BR_hjgaga
-!  theo(n)%BR_hjgg           = BR_hjgg  
-!  theo(n)%BR_hjinvisible    = BR_hjinvisible             
-!  theo(n)%BR_hjhihi         = BR_hjhihi_nHbynH  
-! 
-!  just_after_run=.False. 
-! 
-! end subroutine HiggsBounds_neutral_input_part
+subroutine HiggsBounds_neutral_input_part(Mh,GammaTotal_hj,CP_value,       &
+     &          CS_lep_hjZ_ratio,                            &
+     &          CS_lep_bbhj_ratio,CS_lep_tautauhj_ratio,     &
+     &          CS_lep_hjhi_ratio_nHbynH,                    &
+     &          CS_gg_hj_ratio,CS_bb_hj_ratio,       &
+     &          CS_bg_hjb_ratio,                         &
+     &          CS_ud_hjWp_ratio,CS_cs_hjWp_ratio,   & 
+     &          CS_ud_hjWm_ratio,CS_cs_hjWm_ratio,   & 
+     &          CS_gg_hjZ_ratio,     &
+     &          CS_dd_hjZ_ratio,CS_uu_hjZ_ratio,     &
+     &          CS_ss_hjZ_ratio,CS_cc_hjZ_ratio,     &
+     &          CS_bb_hjZ_ratio,                         &
+     &          CS_tev_vbf_ratio,CS_tev_tthj_ratio,    &
+     &          CS_lhc7_vbf_ratio,CS_lhc7_tthj_ratio,    &
+     &          CS_lhc8_vbf_ratio,CS_lhc8_tthj_ratio,    &
+     &          BR_hjss,BR_hjcc,                             &
+     &          BR_hjbb,BR_hjmumu,BR_hjtautau,               &
+     &          BR_hjWW,BR_hjZZ,BR_hjZga, BR_hjgaga,BR_hjgg, & 
+     &          BR_hjinvisible,BR_hjhihi_nHbynH              )
+! This subroutine can be called by the user after subroutine initialize_HiggsBounds
+! has been called.
+! (see manual for full description)
+!************************************************************
+ use usefulbits, only : theo,np,Hneut,partR,whichinput,just_after_run!,inputsub
+
+#if defined(NAGf90Fortran)
+ use F90_UNIX_IO, only : flush
+#endif
+
+ implicit none
+ !----------------------------------------input
+ double precision,intent(in) :: Mh( np(Hneut) ),GammaTotal_hj( np(Hneut) )
+ integer,intent(in) ::CP_value( np(Hneut) )
+ double precision,intent(in) :: CS_lep_hjZ_ratio( np(Hneut) ),                         &
+     &          CS_lep_bbhj_ratio( np(Hneut) ),CS_lep_tautauhj_ratio( np(Hneut) ),     &
+     &          CS_lep_hjhi_ratio_nHbynH(np(Hneut),np(Hneut)),                         &
+     &          CS_gg_hj_ratio( np(Hneut) ),CS_bb_hj_ratio( np(Hneut) ),       &
+     &          CS_bg_hjb_ratio( np(Hneut) ),                                      &
+     &          CS_ud_hjWp_ratio( np(Hneut) ),CS_cs_hjWp_ratio( np(Hneut) ),   & 
+     &          CS_ud_hjWm_ratio( np(Hneut) ),CS_cs_hjWm_ratio( np(Hneut) ),   & 
+     &          CS_gg_hjZ_ratio( np(Hneut) ),    &
+     &          CS_dd_hjZ_ratio( np(Hneut) ),CS_uu_hjZ_ratio( np(Hneut) ),     &
+     &          CS_ss_hjZ_ratio( np(Hneut) ),CS_cc_hjZ_ratio( np(Hneut) ),     &
+     &          CS_bb_hjZ_ratio( np(Hneut) ),                                      &
+     &          CS_tev_vbf_ratio( np(Hneut) ),CS_tev_tthj_ratio( np(Hneut) ),    &
+     &          CS_lhc7_vbf_ratio( np(Hneut) ),CS_lhc7_tthj_ratio( np(Hneut) ),    &
+     &          CS_lhc8_vbf_ratio( np(Hneut) ),CS_lhc8_tthj_ratio( np(Hneut) ),    &
+     &          BR_hjss( np(Hneut) ),BR_hjcc( np(Hneut) ),                             &
+     &          BR_hjbb( np(Hneut) ),BR_hjmumu( np(Hneut) ),BR_hjtautau( np(Hneut) ),  &
+     &          BR_hjWW( np(Hneut) ),BR_hjZZ( np(Hneut) ),BR_hjZga( np(Hneut) ),       &
+     &          BR_hjgaga( np(Hneut) ),BR_hjgg( np(Hneut) ),                           & 
+     &          BR_hjinvisible( np(Hneut) ),BR_hjhihi_nHbynH(np(Hneut),np(Hneut)) 
+ !---------------------------------------internal
+ integer :: n
+!  integer :: subtype
+ !-----------------------------------------------
+
+ whichinput='part'
+!  subtype=1
+  n=1 
+!  inputsub(subtype)%stat=inputsub(subtype)%stat+1
+      
+ if(.not.allocated(theo))then
+  stop 'subroutine HiggsBounds_initialize must be called first'
+ endif
+
+ if(np(Hneut).eq.0)then
+  write(*,*)'subroutine HiggsBounds_neutral_input_part should'
+  write(*,*)'only be called if np(Hneut)>0'
+  stop 'error in subroutine HiggsBounds_neutral_input_part'
+ endif
+
+ theo(n)%particle(Hneut)%M = Mh 
+ theo(n)%particle(Hneut)%Mc      = Mh        
+ theo(n)%particle(Hneut)%GammaTot= GammaTotal_hj
+ theo(n)%CP_value          = CP_value  
+ theo(n)%lep%XS_hjZ_ratio       = CS_lep_hjZ_ratio
+ theo(n)%lep%XS_bbhj_ratio      = CS_lep_bbhj_ratio
+ theo(n)%lep%XS_tautauhj_ratio  = CS_lep_tautauhj_ratio
+ theo(n)%lep%XS_hjhi_ratio      = CS_lep_hjhi_ratio_nHbynH 
+ partR(n)%gg_hj             = CS_gg_hj_ratio 
+ partR(n)%qq_hj(5,:)        = CS_bb_hj_ratio
+ partR(n)%bg_hjb            = CS_bg_hjb_ratio                    
+ partR(n)%qq_hjWp(1,:)      = CS_ud_hjWp_ratio
+ partR(n)%qq_hjWp(2,:)      = CS_cs_hjWp_ratio         
+ partR(n)%qq_hjWm(1,:)      = CS_ud_hjWm_ratio
+ partR(n)%qq_hjWm(2,:)      = CS_cs_hjWm_ratio  
+ partR(n)%gg_hjZ(:)         = CS_gg_hjZ_ratio      
+ partR(n)%qq_hjZ(1,:)       = CS_dd_hjZ_ratio
+ partR(n)%qq_hjZ(2,:)       = CS_uu_hjZ_ratio           
+ partR(n)%qq_hjZ(3,:)       = CS_ss_hjZ_ratio
+ partR(n)%qq_hjZ(4,:)       = CS_cc_hjZ_ratio             
+ partR(n)%qq_hjZ(5,:)       = CS_bb_hjZ_ratio                         
+ theo(n)%tev%XS_vbf_ratio  = CS_tev_vbf_ratio   
+ theo(n)%tev%XS_tthj_ratio = CS_tev_tthj_ratio  
+ theo(n)%lhc7%XS_vbf_ratio = CS_lhc7_vbf_ratio   
+ theo(n)%lhc7%XS_tthj_ratio= CS_lhc7_tthj_ratio
+ theo(n)%lhc8%XS_vbf_ratio = CS_lhc8_vbf_ratio   
+ theo(n)%lhc8%XS_tthj_ratio= CS_lhc8_tthj_ratio
+ theo(n)%BR_hjss           = BR_hjss  
+ theo(n)%BR_hjcc           = BR_hjcc                
+ theo(n)%BR_hjbb           = BR_hjbb
+ theo(n)%BR_hjmumu         = BR_hjmumu
+ theo(n)%BR_hjtautau       = BR_hjtautau              
+ theo(n)%BR_hjWW           = BR_hjWW
+ theo(n)%BR_hjZZ           = BR_hjZZ
+ theo(n)%BR_hjZga          = BR_hjZga  
+ theo(n)%BR_hjgaga         = BR_hjgaga
+ theo(n)%BR_hjgg           = BR_hjgg  
+ theo(n)%BR_hjinvisible    = BR_hjinvisible             
+ theo(n)%BR_hjhihi         = BR_hjhihi_nHbynH  
+
+ just_after_run=.False. 
+
+end subroutine HiggsBounds_neutral_input_part
 ! !************************************************************      
 ! subroutine HiggsBounds_neutral_input_hadr(Mh,GammaTotal_hj,CP_value,      &
 !      &          CS_lep_hjZ_ratio,                           &
