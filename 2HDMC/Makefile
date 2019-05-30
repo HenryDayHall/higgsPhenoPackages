@@ -26,9 +26,9 @@ PROG=CalcPhys CalcGen CalcHiggs CalcHybrid CalcHMSSM CalcMSSM CalcInert CalcLH D
 # To use HiggsBounds/HiggsSignals for Higgs constraints, put the corresponding libraries
 # in the "lib" subdirectory and uncomment the following lines.
 # Note that both programs: HiggsBounds (> 4.2.0) and HiggsSignals (> 1.4.0) must be present
-#CFLAGS+=-DHiggsBounds
-#LDFLAGS+=-L$(LIBDIR) -lHS -lHB -lgfortran
-#SOURCES+=HBHS.cpp
+CFLAGS+=-DHiggsBounds
+LDFLAGS+=-L$(LIBDIR) -lHS -lHB -lgfortran
+SOURCES+=HBHS.cpp
 
 .PHONY: lib clean distclean
 
