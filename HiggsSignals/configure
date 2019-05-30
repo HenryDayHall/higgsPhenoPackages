@@ -48,11 +48,11 @@ for arg in "$@" ; do
 done 		
 
 # Remove slash in entered paths
-if [ "${CONF_HBPATH: -1}" = "/" ]; then
+if [ $(echo -n $CONF_HBPATH | tail -c 1) = "/" ]; then
 	CONF_HBPATH="${CONF_HBPATH%?}"
 fi	
 
-if [ "${CONF_FHPATH: -1}" = "/" ]; then
+if [ $(echo -n $CONF_FHPATH | tail -c 1) = "/" ]; then
 	CONF_FHPATH="${CONF_FHPATH%?}"
 fi	
 

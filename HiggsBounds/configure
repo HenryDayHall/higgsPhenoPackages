@@ -52,11 +52,11 @@ for arg in "$@" ; do
  esac
 done 		
 
-if [ "${CONF_FHPATH: -1}" = "/" ]; then
+if [ $(echo -n $CONF_FHPATH | tail -c 1) = "/" ]; then
 	CONF_FHPATH="${CONF_FHPATH%?}"
 fi	
 
-if [ "${clsbtablesdir: -1}" != "/" ]; then
+if [ $(echo -n clsbtablesdir | tail -c 1) != "/" ]; then
 	clsbtablesdir="${clsbtablesdir}/"
 fi	
 
