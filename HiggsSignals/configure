@@ -25,7 +25,7 @@ echo ' ******************************************************** '
 
 # Note that you have to build HiggsBounds successfully BEFORE you build HiggsSignals. 
 
-CONF_HBPATH="../HiggsBounds-5.3.1beta"
+CONF_HBPATH="../HiggsBounds"
 CONF_FHPATH="../FeynHiggs-2.14.3beta"
 # For FeynHiggs:
 CONF_OS=`uname -s`
