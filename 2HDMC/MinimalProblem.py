@@ -1,3 +1,6 @@
+# need to turn off display so that pyplot works
+import matplotlib
+matplotlib.use('Agg')
 import subprocess
 import os
 import matplotlib.pyplot as plt
@@ -46,9 +49,10 @@ def MC_run(number_tries):
     # other instructions for the program
     program_name = "./MinimalProblem"
     yukawa = '1'
+    number_outputs = 5
     for i, inps in enumerate(string_inputs):
-        command = [program_name, *inps, yukawa]
-        out = subprocess.run(command, stdout=subprocess.PIPE).stdout.split()
+        command = [program_name] + list(inps) + [yukawa]
+        out = subprocess.check_output(command).split()[-number_outputs:]
         checks[i] = np.array(out[:4], dtype=int).astype(bool)
         brHbb[i] = float(out[-1])
     return input_vals, checks, brHbb
@@ -66,18 +70,16 @@ def main():
     allowed = np.all(checks, axis=1)
     # now make the probelms plots
     # mH vs BrHbb
-    rc('text', usetex=True)
     plt.scatter(input_vals[allowed, 0], brHbb[allowed])
-    plt.xlabel("$m_H$"); plt.ylabel("Br($H \\rightarrow b b$)")
+    plt.xlabel("m_H"); plt.ylabel("Br(H -> b b)")
     plt.title("Type I")
     plt.savefig("mH_vs_BrHbb.png")
     plt.clf()
     # mH vs mA
-    rc('text', usetex=True)
     plt.scatter(input_vals[allowed, 0], input_vals[allowed, 1],
                 c=input_vals[allowed, 3])
-    plt.xlabel("$m_H$"); plt.ylabel("$m_A$")
-    plt.colorbar(label="$tan(\\beta)$")
+    plt.xlabel("m_H"); plt.ylabel("m_A")
+    plt.colorbar(label="tan(beta)")
     plt.title("Type I")
     plt.savefig("mH_vs_mA.png")
 
