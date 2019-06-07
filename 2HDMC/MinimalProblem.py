@@ -82,6 +82,12 @@ def main():
     plt.colorbar(label="tan(beta)")
     plt.title("Type I")
     plt.savefig("mH_vs_mA.png")
+    print("Images created, extract them from the container with cp;")
+    print("leaving this contaienr running, on your own computer do")
+    print("> docker container ls")
+    print("to get the container id")
+    print("then do")
+    print("docker cp container_id:/path/to/images.png ./")
 
 if __name__ == '__main__':
     main()
